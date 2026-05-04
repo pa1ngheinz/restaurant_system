@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DishCreateRequest;
+use App\Models\Category;
 use App\Models\Dish;
 use Illuminate\Http\Request;
 
 class DishController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -22,15 +28,27 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('kitchen.dish_create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DishCreateRequest $request)
     {
-        //
+        $dish = new Dish();
+        $dish->name = $request->name;
+        $dish->category_id = $request->category;
+
+        $imageName = date('YmdHis').'.'.request()->dish_image->getClientOriginalExtension();
+        request()->dish_image->move(public_path('images'), $imageName);
+
+        $dish->image = $imageName;
+        $dish->save(); 
+
+        return redirect('dish')->with('status', 'Dish created successfully.');
     }
 
     /**
@@ -38,7 +56,10 @@ class DishController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $dish = Dish::find($id);
+        // dd($dish);
+        
+        return view('kitchen.dish_detail', compact('dish'));
     }
 
     /**
@@ -46,7 +67,11 @@ class DishController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dish = Dish::find($id);
+
+        $categories = Category::all();
+
+        return view('kitchen.dish_edit', compact('dish', 'categories'));
     }
 
     /**
@@ -62,6 +87,9 @@ class DishController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $dish = Dish::find($id);
+        $dish->delete();
+
+        return redirect('dish')->with('deleted', 'Deleted successfully.');
     }
 }

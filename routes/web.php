@@ -9,13 +9,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Customization Auth Routes
 Auth::routes([
   'reset' => false, // Password Reset Routes...
   'verify' => false, // Email Verification Routes...
   'confirm' => false, // Login confirm Routes...
 ]);
 
-Route::get('/home', [App\Http\Controllers\OrderController::class, 'index'])->name('home');
-
+//Main Blade Routes
 Route::resource('/dish', App\Http\Controllers\DishController::class);
+Route::resource('/order', App\Http\Controllers\OrderController::class);
+
 

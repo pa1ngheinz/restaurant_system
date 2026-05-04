@@ -4,13 +4,12 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
+            <div class="row justify-content-center">
+                <div class="col-md-auto">
                     <h1 class="m-0">Dishes Panel</h1>
                 </div>
             </div>
         </div>
-        <!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
@@ -21,40 +20,63 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Dishes Table</h3>
+                            <h3 class="card-title ">Dishes</h3>
+                            <a href="/dish/create" 
+                            style="float: right;"
+                            class="btn btn-success">Create dish</a>
                         </div>
 
                         <!-- /.card-body -->
                         <div class="card-body">
+                            <!-- Flash Message -->
+                            @if(session('status'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('status') }}
+                                    <button type="button" class="btn-close" style="float: right;" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            @if(session('deleted'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('deleted') }}
+                                    <button type="button" class="btn-close" style="float: right;" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
                             <table
                                 id="dishes"
                                 class="table table-bordered table-striped"
                             >
                                 <thead>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
+                                        <th>Dish Name</th>
+                                        <th>Category Name</th>
+                                        <th>Created Time</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
+                                    @foreach($dishes as $dish)
                                     <tr>
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
+                                        <td>{{ $dish->name }}</td>
+                                        <td>{{ $dish->category->name }}</td>
+                                        <td>{{ $dish->created_at }}</td>
+                                        <td >
+                                           <div class="d-flex align-items-center">
+                                                 <a class="btn btn-default mr-2" href="/dish/{{ $dish->id }}">View</a>
+
+                                                <form action="/dish/{{ $dish->id }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-default" type="submit" onclick="return confirm('Are you sure ?')">
+                                                        Delete 
+                                                    </button>
+                                                </form>
+                                           </div>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>Other browsers</td>
-                                        <td>All others</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>U</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -70,18 +92,22 @@
 </div>
 <!-- /.content-wrapper -->
 
-@endsection
+<!-- JQuery, DataTables and Scripts-->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
 <script>
     $(function () {
         $("#dishes").DataTable({
             paging: true,
+            pageLength: 10,
             lengthChange: false,
-            searching: false,
+            searching: true,
             ordering: true,
             info: true,
-            autoWidth: false,
-            responsive: true,
         });
     });
 </script>
+
+@endsection
+
