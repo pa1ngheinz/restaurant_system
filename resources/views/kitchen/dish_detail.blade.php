@@ -26,6 +26,7 @@
                         <img
                             src="{{ asset('images/'. $dish->image) }}"
                             class="card-img-top"
+                            width="250" height="250"
                             alt="Unavailable"
                         />
 

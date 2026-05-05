@@ -28,11 +28,12 @@
                         <!-- /.card-body -->
                         <div class="card-body">
                             <form
-                                action="/dish"
+                                action="/dish/{{ $dish->id }}"
                                 method="post"
                                 enctype="multipart/form-data"
                             >
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input
@@ -56,6 +57,7 @@
 
                                 <div class="form-group">
                                     <label for="dish_image">Imgae</label> <br />
+                                    <img src="{{ asset('images/' . $dish->image) }}" width="100" height="100"> <br><br>
                                     <input type="file" name="dish_image" />
                                 </div>
                                 <br /><br />

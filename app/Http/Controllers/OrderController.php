@@ -12,6 +12,6 @@ class OrderController extends Controller
     }
 
     public function index(){
-        return view('kitchen.order');
+        return view('order_form');
     }
 }

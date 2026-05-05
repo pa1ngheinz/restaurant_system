@@ -79,7 +79,31 @@ class DishController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request()->validate([
+            'name' => 'required',
+            'category' => 'required',
+        ]);
+
+        $dish = Dish::find($id);
+        $dish->name = $request->name;
+        $dish->category_id = $request->category;
+
+        // Check file input
+        if($request->hasFile('dish_image')){
+            if ($dish->image && file_exists(public_path('images/' . $dish->image))) {
+                unlink(public_path('images/' . $dish->image));
+            }
+  
+            $imageName = date('YmdHis') . '.' . $request->dish_image->extension();
+            $request->dish_image->move(public_path('images'), $imageName);
+        
+            $dish->image = $imageName;
+        }
+        
+        $dish->updated_at = now();
+        $dish->save();
+
+        return redirect('dish')->with('updated', 'Updated successfully.');
     }
 
     /**

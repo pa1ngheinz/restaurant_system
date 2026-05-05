@@ -28,18 +28,31 @@
 
                         <!-- /.card-body -->
                         <div class="card-body">
-                            <!-- Flash Message -->
+                            <!-- Flash Messages -->
                             @if(session('status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('status') }}
-                                    <button type="button" class="btn-close" style="float: right;" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             @endif
 
-                            @if(session('deleted'))
+                           @if(session('deleted'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('deleted') }}
-                                    <button type="button" class="btn-close" style="float: right;" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
+                            @if(session('updated'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('updated') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             @endif
 
@@ -69,7 +82,7 @@
                                                 <form action="/dish/{{ $dish->id }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-default" type="submit" onclick="return confirm('Are you sure ?')">
+                                                    <button class="btn btn-default" type="submit" onclick="return confirm('Are you sure to delete?')">
                                                         Delete 
                                                     </button>
                                                 </form>
@@ -100,7 +113,7 @@
     $(function () {
         $("#dishes").DataTable({
             paging: true,
-            pageLength: 10,
+            pageLength: 5,
             lengthChange: false,
             searching: true,
             ordering: true,

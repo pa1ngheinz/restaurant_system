@@ -5,9 +5,8 @@ use App\Http\Controllers\DishesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\OrderController::class, 'index'])->name('order.form');
+// Route::submit('/order_submit', [App\Http\Controllers\OrderController::class, 'submit'])->name('order.submit');
 
 //Customization Auth Routes
 Auth::routes([
