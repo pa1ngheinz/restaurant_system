@@ -28,7 +28,7 @@
                         <!-- /.card-body -->
                         <div class="card-body">
                             <form
-                                action="/dish/{{ $dish->id }}"
+                                action="{{ route('dish.update', $dish->id) }}"
                                 method="post"
                                 enctype="multipart/form-data"
                             >
@@ -63,7 +63,7 @@
                                 <br /><br />
 
                                 <a
-                                    href="/dish/{{ $dish->id }}"
+                                    href="{{ route('dish.show', $dish->id) }}"
                                     class="btn btn-primary mr-2"
                                     >Back</a
                                 >

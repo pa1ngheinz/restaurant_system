@@ -37,7 +37,7 @@
                             </div>
                             @endif
 
-                            <form action="/dish" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('dish.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -70,7 +70,7 @@
                                 </div> <br><br>
 
                                 <a
-                                href="/dish"
+                                href="{{ route('dish.index') }}"
                                 class="btn btn-primary mr-2"
                                 >Back</a
                                 >

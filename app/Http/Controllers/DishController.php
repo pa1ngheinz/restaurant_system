@@ -79,7 +79,7 @@ class DishController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request()->validate([
+        $request->validate([
             'name' => 'required',
             'category' => 'required',
         ]);

@@ -46,9 +46,9 @@
                                 {{ $dish->created_at->format('d M Y') }}
                             </p>
 
-                            <a href="/dish" class="btn btn-primary">Back</a>
+                            <a href="{{ route('dish.index') }}" class="btn btn-primary">Back</a>
                             <a
-                                href="/dish/{{ $dish->id }}/edit"
+                                href="{{ route('dish.edit', $dish->id) }}"
                                 class="btn btn-primary"
                                 >Edit</a
                             >

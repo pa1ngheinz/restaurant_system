@@ -21,7 +21,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title ">Dishes</h3>
-                            <a href="/dish/create" 
+                            <a href="{{ route('dish.create') }}" 
                             style="float: right;"
                             class="btn btn-success">Create dish</a>
                         </div>
@@ -77,9 +77,9 @@
                                         <td>{{ $dish->created_at }}</td>
                                         <td >
                                            <div class="d-flex align-items-center">
-                                                 <a class="btn btn-default mr-2" href="/dish/{{ $dish->id }}">View</a>
+                                                 <a class="btn btn-default mr-2" href="{{ route('dish.show', $dish->id) }}">View</a>
 
-                                                <form action="/dish/{{ $dish->id }}" method="POST">
+                                                <form action="{{ route('dish.destroy', $dish->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-default" type="submit" onclick="return confirm('Are you sure to delete?')">
