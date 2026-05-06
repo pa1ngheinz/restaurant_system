@@ -19,4 +19,11 @@ Auth::routes([
 Route::resource('/dish', App\Http\Controllers\DishController::class);
 Route::resource('/order', App\Http\Controllers\OrderController::class);
 
+Route::get('/kitchen_order', [App\Http\Controllers\DishController::class, 'order'])->name('kitchen.order');
+Route::get('/kitchen_order/{order}/approve', [App\Http\Controllers\DishController::class, 'approve']);
+Route::get('/kitchen_order/{order}/cancel', [App\Http\Controllers\DishController::class, 'cancel']);
+Route::get('/kitchen_order/{order}/ready', [App\Http\Controllers\DishController::class, 'ready']);
+
+
+
 

@@ -4,13 +4,12 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Kitchen Panel</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-auto">
+                    <h1 class="m-0">Orders (Kitchen Panel)</h1>
                 </div>
             </div>
         </div>
-        <!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
@@ -18,68 +17,57 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                        @if(session('status'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('status') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
 
-                            <p class="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </p>
-
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                        <div class="card-header">
+                            <h3 class="card-title ">Orders</h3>
                         </div>
-                    </div>
 
-                    <div class="card card-primary card-outline">
+                        <!-- /.card-body -->
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                            <table
+                                id="dishes"
+                                class="table table-bordered table-striped"
+                            >
+                                <thead>
+                                    <tr>
+                                        <th>Dish Name</th>
+                                        <th>Table No</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
 
-                            <p class="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                                <tbody>
+                                    @foreach($orders as $order)
+                                    <tr>
+                                        <td>{{ $order->dish->name }}</td>
+                                        <td>{{ $order->table_id }}</td>
+                                        <td>{{ $status[$order->status] }}</td>
+                                        <td >
+                                           <div class="d-flex justify-content-center">
+                                                 <a class="btn btn-default mr-2" href="/kitchen_order/{{ $order->id }}/approve">Approve</a>
+                                                 <a class="btn btn-default mr-2" href="/kitchen_order/{{ $order->id }}/cancel">Cancel</a>
+                                                 <a class="btn btn-default" href="/kitchen_order/{{ $order->id }}/ready">Ready</a>
+                                           </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
+                        <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="m-0">Featured</h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
-
-                            <p class="card-text">
-                                With supporting text below as a natural lead-in
-                                to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h5 class="m-0">Featured</h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
-
-                            <p class="card-text">
-                                With supporting text below as a natural lead-in
-                                to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -88,4 +76,23 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<!-- JQuery, DataTables and Scripts-->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(function () {
+        $("#dishes").DataTable({
+            paging: true,
+            pageLength: 5,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+        });
+    });
+</script>
+
 @endsection
+

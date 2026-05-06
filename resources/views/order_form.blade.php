@@ -25,7 +25,7 @@
     <body>
         <div class="card">
             <div class="card-body">
-                <h3 style="text-align: center;">Order Form</h3>
+                <h3 style="text-align: center;">Order Form (Waiter Panel)</h3>
 
                 @if(session('status'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -122,19 +122,33 @@
                                         role="tabpanel"
                                         aria-labelledby="custom-tabs-one-profile-tab"
                                     >
-                                        Mauris tincidunt mi at erat gravida,
-                                        eget tristique urna bibendum. Mauris
-                                        pharetra purus ut ligula tempor, et
-                                        vulputate metus facilisis. Lorem ipsum
-                                        dolor sit amet, consectetur adipiscing
-                                        elit. Vestibulum ante ipsum primis in
-                                        faucibus orci luctus et ultrices posuere
-                                        cubilia Curae; Maecenas sollicitudin,
-                                        nisi a luctus interdum, nisl ligula
-                                        placerat mi, quis posuere purus ligula
-                                        eu lectus. Donec nunc tellus, elementum
-                                        sit amet ultricies at, posuere nec nunc.
-                                        Nunc euismod pellentesque diam.
+                                        <table
+                                            id="dishes"
+                                            class="table table-bordered table-striped"
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th>Dish Name</th>
+                                                    <th>Table No</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach($orders as $order)
+                                                <tr>
+                                                    <td>{{ $order->dish->name }}</td>
+                                                    <td>{{ $order->table_id }}</td>
+                                                    <td>{{ $status[$order->status] }}</td>
+                                                    <td >
+                                                    <div class="d-flex justify-content-center">
+                                                            <a class="btn btn-success mr-2" href="/kitchen_order/{{ $order->id }}/serve">Serve</a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +160,6 @@
         </div>
 
         <!-- REQUIRED SCRIPTS -->
-
         <!-- Bootstrap Js -->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

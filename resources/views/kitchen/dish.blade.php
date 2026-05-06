@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-md-auto">
-                    <h1 class="m-0">Dishes Panel</h1>
+                    <h1 class="m-0">Dishes (Kitchen Panel)</h1>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
                                         <td>{{ $dish->category->name }}</td>
                                         <td>{{ $dish->created_at }}</td>
                                         <td >
-                                           <div class="d-flex align-items-center">
+                                           <div class="d-flex justify-content-center">
                                                  <a class="btn btn-default mr-2" href="{{ route('dish.show', $dish->id) }}">View</a>
 
                                                 <form action="{{ route('dish.destroy', $dish->id) }}" method="POST">
