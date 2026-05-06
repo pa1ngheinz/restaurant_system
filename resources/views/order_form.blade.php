@@ -25,7 +25,16 @@
     <body>
         <div class="card">
             <div class="card-body">
-                <h3>Order Form</h3>
+                <h3 style="text-align: center;">Order Form</h3>
+
+                @if(session('status'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('status') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
 
                 <!-- ./row -->
                 <div class="row">
@@ -47,7 +56,7 @@
                                             role="tab"
                                             aria-controls="custom-tabs-one-home"
                                             aria-selected="true"
-                                            >Home</a
+                                            >New Order</a
                                         >
                                     </li>
 
@@ -60,7 +69,7 @@
                                             role="tab"
                                             aria-controls="custom-tabs-one-profile"
                                             aria-selected="false"
-                                            >Profile</a
+                                            >Order Lists</a
                                         >
                                     </li>
                                 </ul>
@@ -77,28 +86,34 @@
                                         role="tabpanel"
                                         aria-labelledby="custom-tabs-one-home-tab"
                                     >
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Proin malesuada lacus
-                                        ullamcorper dui molestie, sit amet
-                                        congue quam finibus. Etiam ultricies
-                                        nunc non magna feugiat commodo. Etiam
-                                        odio magna, mollis auctor felis vitae,
-                                        ullamcorper ornare ligula. Proin
-                                        pellentesque tincidunt nisi, vitae
-                                        ullamcorper felis aliquam id.
-                                        Pellentesque habitant morbi tristique
-                                        senectus et netus et malesuada fames ac
-                                        turpis egestas. Proin id orci eu lectus
-                                        blandit suscipit. Phasellus porta, ante
-                                        et varius ornare, sem enim sollicitudin
-                                        eros, at commodo leo est vitae lacus.
-                                        Etiam ut porta sem. Proin porttitor
-                                        porta nisl, id tempor risus rhoncus
-                                        quis. In in quam a nibh cursus pulvinar
-                                        non consequat neque. Mauris lacus elit,
-                                        condimentum ac condimentum at, semper
-                                        vitae lectus. Cras lacinia erat eget
-                                        sapien porta consectetur.
+                                        <form action="{{ route('order.submit') }}" method="post">
+                                            @csrf
+                                            <div class="row">
+                                                @foreach($dishes as $dish)
+                                                    <div class="col-lg-3">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <img src="{{ asset('images/' . $dish->image) }}" width="100" height="100"> <br>
+                                                                <label for="">{{ $dish->name }}</label> <br>
+                                                                <input type="number" name="{{ $dish->id }}" min="0">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <select class="form-control w-25" name="table">
+                                                    <option value="" selected>Select Table</option>
+
+                                                    @foreach($tables as $table)
+                                                        <option value="{{ $table->id }}">{{ $table->number }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
                                     </div>
 
                                     <div
