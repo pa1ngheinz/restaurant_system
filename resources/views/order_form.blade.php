@@ -36,6 +36,15 @@
                     </div>
                 @endif
 
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
                 <!-- ./row -->
                 <div class="row">
                     <div class="col-12 col-sm-6 col-lg-12">
@@ -143,7 +152,7 @@
                                                     <td>{{ $status[$order->status] }}</td>
                                                     <td >
                                                     <div class="d-flex justify-content-center">
-                                                            <a class="btn btn-success mr-2" href="/kitchen_order/{{ $order->id }}/serve">Serve</a>
+                                                        <a class="btn btn-success mr-2" href="/order/{{ $order->id }}/serve">Serve</a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

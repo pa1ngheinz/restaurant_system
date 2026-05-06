@@ -51,4 +51,11 @@ class OrderController extends Controller
         $order->status = config('res.order_status.new');
         $order->save();
     }
+
+    public function serve(Order $order){
+        $order->status = config('res.order_status.done');
+        $order->save();
+
+        return redirect('/order')->with('success', 'Order dish was successfully served to customers.');
+    }
 }

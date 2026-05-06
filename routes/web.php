@@ -15,10 +15,12 @@ Auth::routes([
   'confirm' => false, // Login confirm Routes...
 ]);
 
-//Main Blade Routes
-Route::resource('/dish', App\Http\Controllers\DishController::class);
+//Routes for waiter panel
 Route::resource('/order', App\Http\Controllers\OrderController::class);
+Route::get('/order/{order}/serve', [App\Http\Controllers\OrderController::class, 'serve']);
 
+// Routes for kitchen panel
+Route::resource('/dish', App\Http\Controllers\DishController::class);
 Route::get('/kitchen_order', [App\Http\Controllers\DishController::class, 'order'])->name('kitchen.order');
 Route::get('/kitchen_order/{order}/approve', [App\Http\Controllers\DishController::class, 'approve']);
 Route::get('/kitchen_order/{order}/cancel', [App\Http\Controllers\DishController::class, 'cancel']);
