@@ -48,12 +48,16 @@
                                 alt="User Image"
                             />
                         </div>
+
                         <div class="info">
                             <a
-                                href=""
-                                class="d-block"
-                                >{{ auth()->user()->name }}</a
+                                href="#"
+                                class="nav-link"
+                                data-toggle="modal"
+                                data-target="#profileModal"
                             >
+                                {{ auth()->user()->name }}
+                            </a>
                         </div>
                     </div>
 
@@ -68,16 +72,24 @@
                             <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                             <li class="nav-item menu-open">
-                                <h3 class="font-weight-light"
-                                 style="color: white;
-                                text-align: start;
-                                margin-left: 15px;
-                                font-size: 20px;
-                                ">Kitchen Panel</h3>
+                                <h3
+                                    class="font-weight-light"
+                                    style="
+                                        color: white;
+                                        text-align: start;
+                                        margin-left: 15px;
+                                        font-size: 20px;
+                                    "
+                                >
+                                    Kitchen Panel
+                                </h3>
 
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('dish.index') }}" class="nav-link {{ request()->segment(1) == 'dish'? 'active': '' }}">
+                                        <a
+                                            href="{{ route('dish.index') }}"
+                                            class="nav-link {{ request()->segment(1) == 'dish'? 'active': '' }}"
+                                        >
                                             <i
                                                 class="far fa-circle nav-icon"
                                             ></i>
@@ -85,7 +97,10 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('kitchen.order') }}" class="nav-link {{ request()->segment(1) == 'kitchen_order'? 'active': '' }}">
+                                        <a
+                                            href="{{ route('kitchen.order') }}"
+                                            class="nav-link {{ request()->segment(1) == 'kitchen_order'? 'active': '' }}"
+                                        >
                                             <i
                                                 class="far fa-circle nav-icon"
                                             ></i>
@@ -97,7 +112,7 @@
                         </ul>
                     </nav>
 
-                    <hr>
+                    <hr />
 
                     <nav class="mt-2">
                         <ul
@@ -109,16 +124,24 @@
                             <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                             <li class="nav-item menu-open">
-                                <h3 class="font-weight-light"
-                                 style="color: white;
-                                text-align: start;
-                                margin-left: 15px;
-                                font-size: 20px;
-                                ">Waiter Panel</h3>
+                                <h3
+                                    class="font-weight-light"
+                                    style="
+                                        color: white;
+                                        text-align: start;
+                                        margin-left: 15px;
+                                        font-size: 20px;
+                                    "
+                                >
+                                    Waiter Panel
+                                </h3>
 
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('order.index') }}" class="nav-link {{ request()->segment(1) == 'order'? 'active': '' }}">
+                                        <a
+                                            href="{{ route('order.index') }}"
+                                            class="nav-link {{ request()->segment(1) == 'order'? 'active': '' }}"
+                                        >
                                             <i
                                                 class="far fa-circle nav-icon"
                                             ></i>
@@ -135,6 +158,67 @@
             </aside>
 
             @yield('content')
+
+            <!-- Profile Popup window -->
+            <div
+                class="modal fade"
+                id="profileModal"
+                tabindex="-1"
+                role="dialog"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Profile</h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        class="form-control"
+                                        value="{{ Auth::user()->name }}"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        class="form-control"
+                                        value="{{ Auth::user()->email }}"
+                                    />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ./Profile Popup window -->
 
             <!-- Main Footer -->
             <footer class="main-footer">
