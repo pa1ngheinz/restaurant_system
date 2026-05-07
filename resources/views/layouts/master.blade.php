@@ -140,7 +140,7 @@
                                     <li class="nav-item">
                                         <a
                                             href="{{ route('order.index') }}"
-                                            class="nav-link {{ request()->segment(1) == 'order'? 'active': '' }}"
+                                            class="nav-link {{ request()->segment(1) == 'order' || ''? 'active': '' }}"
                                         >
                                             <i
                                                 class="far fa-circle nav-icon"
