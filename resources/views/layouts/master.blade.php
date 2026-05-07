@@ -43,7 +43,7 @@
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
                             <img
-                                src="/dist/img/user2-160x160.jpg"
+                                src="{{ Auth::user()->image? asset('images/profile/'. Auth::user()->image): asset('images/profile/default.png') }}"
                                 class="img-circle elevation-2"
                                 alt="User Image"
                             />
@@ -180,28 +180,50 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="" method="POST">
+                        <form action="/profile" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
+                                <div class="text-center mb-3">
+                                    <img
+                                        src="{{ Auth::user()->image? asset('images/profile/'. Auth::user()->image): asset('images/profile/default.png') }}"
+                                        class="rounded-circle"
+                                        style="
+                                            width: 100px;
+                                            height: 100px;
+                                            object-fit: cover;
+                                        "
+                                    />
+                                </div>
+
+                                <div class="form-group">
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        class="form-control-file"
+                                    />
+                                </div>
+
                                 <div class="form-group">
                                     <label>Name</label>
                                     <input
                                         type="text"
                                         name="name"
                                         class="form-control"
-                                        value="{{ Auth::user()->name }}"
+                                        value="{{ old('name', Auth::user()->name)}}"
                                     />
                                 </div>
+
                                 <div class="form-group">
                                     <label>Email</label>
                                     <input
                                         type="email"
                                         name="email"
                                         class="form-control"
-                                        value="{{ Auth::user()->email }}"
+                                        value="{{ old('email', Auth::user()->email)}}"
                                     />
                                 </div>
                             </div>
+
                             <div class="modal-footer">
                                 <button
                                     type="button"

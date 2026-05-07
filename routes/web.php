@@ -13,7 +13,7 @@ Auth::routes([
   'confirm' => false, // Login confirm Routes...
   ]);
   
-  //Routes for waiter panel
+//Routes for waiter panel
 Route::get('/', [App\Http\Controllers\OrderController::class, 'index'])->name('order.form');
 Route::post('/order_submit', [App\Http\Controllers\OrderController::class, 'submit'])->name('order.submit');
 Route::resource('/order', App\Http\Controllers\OrderController::class);
@@ -26,6 +26,8 @@ Route::get('/kitchen_order/{order}/approve', [App\Http\Controllers\DishControlle
 Route::get('/kitchen_order/{order}/cancel', [App\Http\Controllers\DishController::class, 'cancel']);
 Route::get('/kitchen_order/{order}/ready', [App\Http\Controllers\DishController::class, 'ready']);
 
+//Profile
+Route::post('/profile', [App\Http\Controllers\HomeController::class, 'update']);
 
 
 

@@ -38,6 +38,15 @@
                                 </div>
                             @endif
 
+                            @if(session('profile_updated'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('profile_updated') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
                            @if(session('deleted'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('deleted') }}
