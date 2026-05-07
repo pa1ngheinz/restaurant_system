@@ -26,20 +26,26 @@ class OrderController extends Controller
 
     public function submit(Request $request){
         $data = array_filter($request->except('_token', 'table'));
-
         $orderId = rand();
 
-        foreach ($data as $key => $value) {
-           if($value > 1){
-                for ($i=0; $i < $value; $i++) { 
-                    $this->saveOrders($key, $request, $orderId);
+        if($data){
+            foreach ($data as $key => $value) {
+               if($value > 1){
+                    for ($i=0; $i < $value; $i++) { 
+                        $smth = 'Hello';
+                        dd($smth);
+                        $this->saveOrders($key, $request, $orderId);
                 }
                 }else{
                     $this->saveOrders($key, $request, $orderId);
-           }
+                }
+            }
+            return redirect('/')->with('status', 'Order has successfully submitted.');
+        }else{
+            return redirect('/')->with('empty', 'Please select dish to order!');
         }
+
         
-        return redirect('/')->with('status', 'Order has successfully submitted.');
     }
 
     //Redue code for database inserting as a function

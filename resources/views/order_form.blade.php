@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-auto">
-                        <h1 class="m-0">Orders (Kitchen Panel)</h1>
+                        <h1 class="m-0">Orders (Waiter Panel)</h1>
                     </div>
                 </div>
             </div>
@@ -33,6 +33,15 @@
                                 @if(session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
+
+                                @if(session('empty'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{ session('empty') }}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -106,7 +115,7 @@
                                                         </div>
                                                             
                                                         <div class="form-group">
-                                                            <select class="form-control w-25" name="table">
+                                                            <select class="form-control w-25" name="table" required>
                                                                 <option value="" selected>Select Table</option>
 
                                                                 @foreach($tables as $table)
@@ -139,7 +148,7 @@
                                                     </thead>
 
                                                     <tbody>
-                                                        @foreach($orders as $order)
+                                                        @forelse($orders as $order)
                                                         <tr>
                                                             <td>{{ $order->dish->name }}</td>
                                                             <td>{{ $order->table_id }}</td>
@@ -149,7 +158,13 @@
                                                                 <a class="btn btn-success mr-2" href="/order/{{ $order->id }}/serve">Serve</a>
                                                             </td>
                                                         </tr>
-                                                        @endforeach
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    No dish has ready yet to show here!!
+                                                                </td>
+                                                            </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
