@@ -68,6 +68,13 @@
                             <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                             <li class="nav-item menu-open">
+                                <h3 class="font-weight-light"
+                                 style="color: white;
+                                text-align: start;
+                                margin-left: 15px;
+                                font-size: 20px;
+                                ">Kitchen Panel</h3>
+
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="{{ route('dish.index') }}" class="nav-link {{ request()->segment(1) == 'dish'? 'active': '' }}">
@@ -79,6 +86,39 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('kitchen.order') }}" class="nav-link {{ request()->segment(1) == 'kitchen_order'? 'active': '' }}">
+                                            <i
+                                                class="far fa-circle nav-icon"
+                                            ></i>
+                                            <p>Orders</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <hr>
+
+                    <nav class="mt-2">
+                        <ul
+                            class="nav nav-pills nav-sidebar flex-column"
+                            data-widget="treeview"
+                            role="menu"
+                            data-accordion="false"
+                        >
+                            <!-- Add icons to the links using the .nav-icon class
+                            with font-awesome or any other icon font library -->
+                            <li class="nav-item menu-open">
+                                <h3 class="font-weight-light"
+                                 style="color: white;
+                                text-align: start;
+                                margin-left: 15px;
+                                font-size: 20px;
+                                ">Waiter Panel</h3>
+
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('order.index') }}" class="nav-link {{ request()->segment(1) == 'order'? 'active': '' }}">
                                             <i
                                                 class="far fa-circle nav-icon"
                                             ></i>
