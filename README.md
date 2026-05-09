@@ -80,14 +80,3 @@ Visit [http://localhost:8000](http://localhost:8000) in your browser.
 - Access the admin panel for management features.
 - Place and manage orders from the kitchen view.
 
-## License
-
-This project is open-source. See the LICENSE file for details.
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## Contact
-
-For support, contact [paingheink003@gmail.com].
