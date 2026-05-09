@@ -90,7 +90,7 @@
                                                             role="tab"
                                                             aria-controls="custom-tabs-one-profile"
                                                             aria-selected="false"
-                                                            >Order Lists</a
+                                                            >Ordered Dishes</a
                                                         >
                                                     </li>
                                                 </ul>
