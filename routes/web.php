@@ -11,7 +11,7 @@ Auth::routes([
   'reset' => false, // Password Reset Routes...
   'verify' => false, // Email Verification Routes...
   'confirm' => false, // Login confirm Routes...
-  ]);
+]);
   
 //Routes for waiter panel
 Route::get('/', [App\Http\Controllers\OrderController::class, 'index'])->name('order.form');
@@ -25,6 +25,7 @@ Route::get('/kitchen_order', [App\Http\Controllers\DishController::class, 'order
 Route::get('/kitchen_order/{order}/approve', [App\Http\Controllers\DishController::class, 'approve']);
 Route::get('/kitchen_order/{order}/cancel', [App\Http\Controllers\DishController::class, 'cancel']);
 Route::get('/kitchen_order/{order}/ready', [App\Http\Controllers\DishController::class, 'ready']);
+Route::resource('/tables', App\Http\Controllers\TableController::class);
 
 //Profile
 Route::post('/profile', [App\Http\Controllers\HomeController::class, 'update']);

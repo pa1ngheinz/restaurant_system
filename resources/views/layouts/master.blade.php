@@ -96,6 +96,19 @@
                                             <p>Dishes</p>
                                         </a>
                                     </li>
+
+                                    <li class="nav-item">
+                                        <a
+                                            href="{{ route('tables.index') }}"
+                                            class="nav-link {{ request()->segment(1) == 'tables'? 'active': '' }}"
+                                        >
+                                            <i
+                                                class="far fa-circle nav-icon"
+                                            ></i>
+                                            <p>Tables</p>
+                                        </a>
+                                    </li>
+
                                     <li class="nav-item">
                                         <a
                                             href="{{ route('kitchen.order') }}"
