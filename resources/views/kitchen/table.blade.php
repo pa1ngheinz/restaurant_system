@@ -18,11 +18,20 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                        @if(session('created'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('created') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title ">Tables</h3>
 
-                                <a href="{{ route('table.create') }}" style="float: inline-end" class="btn btn-primary">Create Table</a>
+                                <a href="{{ route('tables.create') }}" style="float: inline-end" class="btn btn-primary">Create Table</a>
                             </div>
 
                             <!-- /.card-body -->

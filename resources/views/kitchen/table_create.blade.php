@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Create Table (Kitchen table)</h1>
+                    <h1 class="m-0">Create Table (Kitchen Panel)</h1>
                 </div>
             </div>
         </div>
@@ -37,25 +37,25 @@
                             </div>
                             @endif
 
-                            <form action="{{ route('dish.store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('tables.store') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">Table Number</label>
                                     <input
-                                        class="form-control"
+                                        class="form-control w-25"
                                         type="text"
-                                        name="name"
+                                        name="number"
                                         value="{{ old('name') }}"
                                     />
                                 </div>
 
                                 <a
-                                href="{{ route('dish.index') }}"
+                                href="{{ route('tables.index') }}"
                                 class="btn btn-primary mr-2"
                                 >Back</a
                                 >
 
-                                <button class="btn btn-primary" type="submit">Done</button>
+                                <button class="btn btn-primary" type="submit">Create</button>
                             </form>
                         </div>
                         <!-- /.card-body -->

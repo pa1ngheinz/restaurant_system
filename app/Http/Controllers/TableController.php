@@ -22,7 +22,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('kitchen.table_create');
     }
 
     /**
@@ -30,7 +30,15 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'number' => 'required|numeric|max:20',
+        ]);
+
+        $table = new Table();
+        $table->number = $request->number;
+        $table->save();
+
+        return redirect('/tables')->with('created', 'Table successfully created.');
     }
 
     /**
