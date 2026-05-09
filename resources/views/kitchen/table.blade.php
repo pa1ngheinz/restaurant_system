@@ -27,6 +27,15 @@
                             </div>
                         @endif
 
+                        @if(session('deleted'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('deleted') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title ">Tables</h3>
@@ -52,9 +61,11 @@
                                                 <td>{{ $table->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a class="btn btn-default mr-2"
-                                                            href="">Delete</a>
-
+                                                        <form action="{{route('tables.destroy', $table->id)}}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input class="btn btn-default" type="submit" value="Delete">
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>

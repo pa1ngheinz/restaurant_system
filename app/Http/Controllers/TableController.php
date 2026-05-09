@@ -70,6 +70,9 @@ class TableController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $table = Table::find($id);
+        $table->delete();
+
+        return back()->with('deleted', 'Table successfully deleted.');
     }
 }
