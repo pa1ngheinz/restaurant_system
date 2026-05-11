@@ -5,11 +5,11 @@ A web-based restaurant management system built with Laravel. This application he
 ## Features
 
 - User authentication
-- Table management
-- Dish and category management
+- User authorization
+- Table, dish and category management
 - Order processing
-- Kitchen order view
-- Admin panel
+- Waiter panel
+- Kitchen panel(Admins only)
 
 ## Requirements
 
@@ -76,7 +76,9 @@ Visit [http://localhost:8000](http://localhost:8000) in your browser.
 
 ## Usage
 
-- Login with the seeded user credentials or register a new account.
-- Access the admin panel for management features.
-- Place and manage orders from the kitchen view.
+- Login with the seeded users or register a new account.
+- You can only set user role manually in the database.
+- Access the admin panel for management features like creating the available dishes and tables (only for admins).
+- Order the dishes from waiter panel and then manage orders(approve, cancel, done) from kitchen panel again.
+- Once you approved and finished the orders, you can finally serve the dishes from waiter panel!.
 
