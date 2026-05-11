@@ -57,6 +57,15 @@
                                     </div>
                                 @endif
 
+                                @if(session('access'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{ session('access') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
+
                                 <!-- ./row -->
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-lg-12">
@@ -77,7 +86,7 @@
                                                             role="tab"
                                                             aria-controls="custom-tabs-one-home"
                                                             aria-selected="true"
-                                                            >New Order</a
+                                                            >New Orders</a
                                                         >
                                                     </li>
 
@@ -133,7 +142,7 @@
                                                             </select>
                                                         </div>
 
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" class="btn btn-primary">Send to Kitchen</button>
                                                     </form>
                                             </div>
 

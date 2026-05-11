@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TableController extends Controller
 {
@@ -16,9 +18,13 @@ class TableController extends Controller
      */
     public function index()
     {
-        $tables = Table::all();
+        if(!Gate::allows('access-admin', Auth::user())){
+            return redirect('/order')->with('access', 'Unauthorized.');
+        }else{
+            $tables = Table::all();
 
-        return view('kitchen.table', compact('tables'));
+            return view('kitchen.table', compact('tables'));
+        }
     }
 
     /**

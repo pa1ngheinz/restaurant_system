@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class DishController extends Controller
 {
@@ -19,9 +21,13 @@ class DishController extends Controller
      */
     public function index()
     {
-        $dishes = Dish::all();
+        if (!Gate::allows('access-admin', Auth::user())) {
+            return redirect('/order')->with('access', 'Unauthorized.');
+        } else {
+            $dishes = Dish::all();
 
-        return view('kitchen.dish', compact('dishes'));
+            return view('kitchen.dish', compact('dishes'));
+        }
     }
 
     /**
@@ -43,11 +49,11 @@ class DishController extends Controller
         $dish->name = $request->name;
         $dish->category_id = $request->category;
 
-        $imageName = date('YmdHis').'.'.request()->dish_image->getClientOriginalExtension();
+        $imageName = date('YmdHis') . '.' . request()->dish_image->getClientOriginalExtension();
         request()->dish_image->move(public_path('images'), $imageName);
 
         $dish->image = $imageName;
-        $dish->save(); 
+        $dish->save();
 
         return redirect('dish')->with('status', 'Dish created successfully.');
     }
@@ -59,7 +65,7 @@ class DishController extends Controller
     {
         $dish = Dish::find($id);
         // dd($dish);
-        
+
         return view('kitchen.dish_detail', compact('dish'));
     }
 
@@ -90,17 +96,17 @@ class DishController extends Controller
         $dish->category_id = $request->category;
 
         // Check file input
-        if($request->hasFile('dish_image')){
+        if ($request->hasFile('dish_image')) {
             if ($dish->image && file_exists(public_path('images/' . $dish->image))) {
                 unlink(public_path('images/' . $dish->image));
             }
-  
+
             $imageName = date('YmdHis') . '.' . $request->dish_image->extension();
             $request->dish_image->move(public_path('images'), $imageName);
-        
+
             $dish->image = $imageName;
         }
-        
+
         $dish->updated_at = now();
         $dish->save();
 
@@ -118,30 +124,38 @@ class DishController extends Controller
         return redirect('dish')->with('deleted', 'Deleted successfully.');
     }
 
-    public function order(){
-        $orders = Order::whereIn('status', [1, 2])->get();
+    public function order()
+    {
+        if (!Gate::allows('access-admin', Auth::user())) {
+            return redirect('/order')->with('access', 'Unauthorized.');
+        } else {
+            $orders = Order::whereIn('status', [1, 2])->get();
 
-        $rawStatus = config('res.order_status');
-        $status = array_flip($rawStatus);
+            $rawStatus = config('res.order_status');
+            $status = array_flip($rawStatus);
 
-        return view('kitchen.order', compact('orders', 'status'));
+            return view('kitchen.order', compact('orders', 'status'));
+        }
     }
 
-    public function approve(Order $order){
+    public function approve(Order $order)
+    {
         $order->status = config('res.order_status.processing');
         $order->save();
 
         return redirect('/kitchen_order')->with('status', 'Order Approved.');
     }
 
-    public function cancel(Order $order){
+    public function cancel(Order $order)
+    {
         $order->status = config('res.order_status.cancel');
         $order->save();
 
         return redirect('/kitchen_order')->with('status', 'Order Cancelled.');
     }
 
-    public function ready(Order $order){
+    public function ready(Order $order)
+    {
         $order->status = config('res.order_status.ready');
         $order->save();
 
